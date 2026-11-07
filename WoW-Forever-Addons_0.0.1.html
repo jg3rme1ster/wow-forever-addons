@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="44 WoW-Forever-Addons mit CurseForge-Links und Installationsbuttons.">
+  <meta name="version" content="0.0.1">
+  <meta name="color-scheme" content="dark">
+  <title>WoW Forever · Deine Addon-Sammlung</title>
+  <style>
+    :root { --gold:#dfbd74; --gold-bright:#f3d897; --ink:#ece6d9; --muted:#aaa595; --orange:#f16424; --orange-hover:#ff773b; --line:rgba(208,174,105,.22); }
+    * { box-sizing:border-box; }
+    [hidden] { display:none !important; }
+    html { min-width:320px; background:#0a0f12; }
+    body { margin:0; color:var(--ink); font-family:"Segoe UI",Arial,sans-serif; line-height:1.55; background:radial-gradient(ellipse at 50% -200px,rgba(148,91,27,.25),transparent 770px),radial-gradient(ellipse at 0 700px,rgba(18,57,63,.21),transparent 750px),#0a0f12; }
+    body::before { content:""; display:block; height:3px; background:linear-gradient(90deg,transparent,#6f5028,var(--gold),#6f5028,transparent); }
+    a { color:inherit; }
+    a:focus-visible,input:focus-visible,button:focus-visible { outline:3px solid var(--gold-bright); outline-offset:5px; }
+    .page { max-width:1360px; margin:0 auto; padding:58px 38px 36px; }
+    .hero { position:relative; text-align:center; padding:0 0 34px; }
+    .crest { display:grid; place-items:center; width:66px; height:72px; margin:0 auto 21px; color:var(--gold-bright); font-family:Georgia,"Times New Roman",serif; font-size:35px; font-weight:bold; text-shadow:0 2px 5px #000; background:linear-gradient(135deg,#584320,#1d211d 55%,#4e391c); border:1px solid #a58346; border-radius:8px 8px 28px 28px; box-shadow:0 0 0 5px #101719,0 0 0 6px #5b4829,0 8px 35px #000; }
+    .eyebrow { margin:0 0 8px; color:var(--gold); font-size:12px; letter-spacing:.29em; text-transform:uppercase; font-weight:600; }
+    h1 { margin:0; font-family:Georgia,"Times New Roman",serif; font-weight:normal; font-size:clamp(30px,4vw,49px); line-height:1.2; color:var(--gold-bright); text-shadow:0 2px 15px #000; }
+    .subtitle { margin:15px auto 0; color:#beb7a8; font-size:15px; max-width:700px; }
+    .ornament { display:flex; align-items:center; gap:14px; max-width:400px; margin:26px auto 0; color:var(--gold); font-size:11px; }
+    .ornament::before,.ornament::after { content:""; flex:1; height:1px; background:linear-gradient(90deg,transparent,#816335); }
+    .ornament::after { transform:rotate(180deg); }
+    .panel { position:relative; border:1px solid #66502d; background:#11191d; box-shadow:0 0 0 4px #0b1013,0 0 0 5px #302a20,0 18px 70px #0008; }
+    .panel::before,.panel::after { content:""; pointer-events:none; position:absolute; top:-2px; width:22px; height:22px; border-top:3px solid #c09b56; }
+    .panel::before { left:-2px; border-left:3px solid #c09b56; }
+    .panel::after { right:-2px; border-right:3px solid #c09b56; }
+    .toolbar { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:23px 25px; background:linear-gradient(180deg,#202626,#171e20); border-bottom:1px solid var(--line); }
+    .collection-info { display:flex; align-items:center; flex-wrap:wrap; gap:12px; }
+    .collection-title { font-family:Georgia,"Times New Roman",serif; color:var(--gold-bright); font-size:20px; }
+    .badge { display:inline-flex; padding:3px 10px; border:1px solid #645333; background:#a67e2410; color:var(--gold); border-radius:3px; font-size:12px; font-weight:600; white-space:nowrap; }
+    .search { display:flex; align-items:center; gap:10px; width:340px; max-width:100%; padding:10px 13px; border:1px solid #555043; border-radius:3px; background:#0b1216; }
+    .search svg { flex-shrink:0; width:18px; height:18px; fill:none; stroke:var(--gold); stroke-width:1.7; }
+    .search input { width:100%; min-width:0; border:0; padding:0; color:var(--ink); background:transparent; font:inherit; font-size:14px; }
+    .search input::placeholder { color:#99998e; }
+    .search input:focus { outline:none; }
+    .search:focus-within { border-color:var(--gold); box-shadow:0 0 0 2px #dfbd7428; }
+    .table-wrap { width:100%; overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; table-layout:fixed; }
+    caption { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+    col:nth-child(1) { width:32%; } col:nth-child(2) { width:49%; } col:nth-child(3) { width:19%; }
+    thead { background:#182023; }
+    thead th { text-align:left; color:#beaa82; padding:15px 24px; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.16em; border-bottom:1px solid var(--line); }
+    thead th:last-child { text-align:right; }
+    tbody tr { background:#11191d; transition:background .15s; }
+    tbody tr:nth-child(even) { background:#141d21; }
+    tbody tr:hover { background:#242a26; }
+    tbody th,tbody td { border-bottom:1px solid rgba(175,158,122,.11); padding:17px 24px; vertical-align:middle; }
+    tbody th { text-align:left; font-size:14px; font-weight:600; overflow-wrap:anywhere; }
+    .row-number { display:block; color:#9b8a68; font-size:10px; font-weight:400; letter-spacing:.12em; margin-bottom:3px; }
+    .addon-name { display:block; color:#efe8d9; }
+    .project-link { display:inline; color:#b7b9ae; font-size:12px; line-height:1.7; text-decoration-color:#746340; text-underline-offset:4px; overflow-wrap:anywhere; }
+    .project-link:hover { color:var(--gold-bright); }
+    .action-cell { text-align:right; }
+    .install-button { display:inline-flex; justify-content:center; align-items:center; gap:9px; min-height:43px; min-width:145px; padding:10px 16px; background:var(--orange); color:#fff; text-decoration:none; font-size:14px; font-weight:600; line-height:1.35; border:1px solid #fa8950; box-shadow:inset 0 1px #ffffff1f,0 3px 8px #0004; transition:background .15s,box-shadow .15s; }
+    .install-button:hover { background:var(--orange-hover); box-shadow:0 0 18px #f1642430; }
+    .install-button svg { width:17px; height:17px; flex-shrink:0; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+    .empty { margin:0; padding:40px 24px; text-align:center; color:var(--muted); }
+    .panel-footer { display:flex; gap:12px; align-items:baseline; justify-content:space-between; padding:14px 25px; color:#a89f8b; background:#101619; font-size:12px; }
+    .usage { margin:25px 0 0; padding:17px 20px; color:#b9b4a7; background:#141b1c; border-left:2px solid #96733e; font-size:13px; }
+    .usage strong { color:var(--gold); font-weight:600; }
+    .usage a { color:var(--gold); text-underline-offset:3px; }
+    footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin:23px 0 0; color:#a29a89; font-size:11px; }
+    @media (max-width:1050px) {
+      .page { padding:40px 22px 28px; }
+      col:nth-child(1) { width:31%; } col:nth-child(2) { width:47%; } col:nth-child(3) { width:22%; }
+      thead th,tbody th,tbody td { padding-left:17px; padding-right:17px; }
+      .install-button { min-width:137px; padding:10px 12px; }
+    }
+    /* Auf schmalen Displays bleibt jede Tabellenzeile in derselben Reihenfolge lesbar. */
+    @media (max-width:690px) {
+      .page { padding:30px 15px 24px; }
+      .hero { padding-bottom:28px; }
+      .eyebrow { font-size:10px; letter-spacing:.21em; }
+      .subtitle { font-size:13px; }
+      .toolbar { flex-direction:column; align-items:stretch; gap:15px; padding:19px; }
+      .collection-info { justify-content:space-between; }
+      .search { width:100%; }
+      table,colgroup,tbody { display:block; }
+      thead { display:none; }
+      tbody tr { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:7px 12px; padding:17px; border-bottom:1px solid var(--line); }
+      tbody th,tbody td { display:block; padding:0; border:0; }
+      tbody th { grid-column:1; align-self:center; font-size:14px; }
+      .project-cell { grid-column:1 / -1; grid-row:2; }
+      .project-link { font-size:11px; }
+      .action-cell { grid-column:2; grid-row:1; align-self:center; }
+      .install-button { min-width:121px; min-height:42px; padding:10px; font-size:12px; gap:6px; }
+      .panel-footer { align-items:flex-start; flex-direction:column; gap:3px; padding:15px 18px; }
+      .usage { padding:15px; font-size:12px; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { transition:none !important; } }
+    @media print {
+      body,html { background:#fff; color:#111; }
+      .page { padding:0; max-width:none; }
+      .crest,.search,.ornament { display:none; }
+      .panel { box-shadow:none; }
+      .hero { padding-bottom:20px; }
+      h1,.eyebrow,.collection-title,.addon-name,.project-link,.subtitle { color:#111; text-shadow:none; }
+      tbody tr,tbody tr:nth-child(even),.toolbar,thead { background:#fff; }
+      .action-cell,.install-button,thead th:last-child { display:none; }
+      tbody th,tbody td { padding:8px; border-bottom:1px solid #ddd; }
+      footer,.usage,.panel-footer { color:#444; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="crest" aria-hidden="true">W</div>
+      <p class="eyebrow">World of Warcraft · Forever</p>
+      <h1>Deine Addon-Sammlung</h1>
+      <p class="subtitle">Dein Setup für das nächste Abenteuer.<br>Alle Addons, die passenden Links und die Installation an einem Ort.</p>
+      <div class="ornament" aria-hidden="true">◆</div>
+    </header>
+    <section class="panel" aria-labelledby="collection-heading">
+      <div class="toolbar">
+        <div class="collection-info"><span class="collection-title" id="collection-heading">Addon-Verzeichnis</span><span class="badge" id="result-count" role="status" aria-live="polite">44 Addons</span></div>
+        <label class="search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+          <input id="addon-search" type="search" placeholder="Addon suchen …" aria-label="Addons nach Name oder Link filtern" autocomplete="off">
+        </label>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <caption>44 WoW-Forever-Addons mit Projektlink und Installation in der CurseForge-App</caption>
+          <colgroup><col><col><col></colgroup>
+          <thead><tr><th scope="col">Addon-Name</th><th scope="col">CurseForge-Link</th><th scope="col">Installation</th></tr></thead>
+          <tbody id="addon-list">
+          <tr data-project-id="1422985" data-file-id="9467191">
+            <th scope="row"><span class="row-number">01</span><span class="addon-name">AtlasLoot Classic Forever</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/atlasloot-forever" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/atlasloot-forever</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/atlasloot-forever/install/9467191" target="_blank" rel="noopener noreferrer" aria-label="AtlasLoot Classic Forever in CurseForge installieren" title="Exportierte Version: AtlasLoot-Classic-Forever-1.3.1-061126-16001.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="6124" data-file-id="9162359">
+            <th scope="row"><span class="row-number">02</span><span class="addon-name">Auctionator</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/auctionator" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/auctionator</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/auctionator/install/9162359" target="_blank" rel="noopener noreferrer" aria-label="Auctionator in CurseForge installieren" title="Exportierte Version: Auctionator-341.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="914482" data-file-id="9473987">
+            <th scope="row"><span class="row-number">03</span><span class="addon-name">Baganator</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/baganator" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/baganator</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/baganator/install/9473987" target="_blank" rel="noopener noreferrer" aria-label="Baganator in CurseForge installieren" title="Exportierte Version: Baganator-843.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="709520" data-file-id="9278893">
+            <th scope="row"><span class="row-number">04</span><span class="addon-name">Better Fishing</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/better-fishing" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/better-fishing</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/better-fishing/install/9278893" target="_blank" rel="noopener noreferrer" aria-label="Better Fishing in CurseForge installieren" title="Exportierte Version: BetterFishing-66.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1710228" data-file-id="9474284">
+            <th scope="row"><span class="row-number">05</span><span class="addon-name">Books on Map Forever</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/books-on-map-forever" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/books-on-map-forever</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/books-on-map-forever/install/9474284" target="_blank" rel="noopener noreferrer" aria-label="Books on Map Forever in CurseForge installieren" title="Exportierte Version: Books_on_map_Foreverv2.2.1.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="3358" data-file-id="9414590">
+            <th scope="row"><span class="row-number">06</span><span class="addon-name">DBM - Deadly Boss Mods (DBM-Core)</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/deadly-boss-mods" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/deadly-boss-mods</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/deadly-boss-mods/install/9414590" target="_blank" rel="noopener noreferrer" aria-label="DBM - Deadly Boss Mods (DBM-Core) in CurseForge installieren" title="Exportierte Version: DBM-Core-12.1.19.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="61284" data-file-id="9447255">
+            <th scope="row"><span class="row-number">07</span><span class="addon-name">Details! Damage Meter</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/details" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/details</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/details/install/9447255" target="_blank" rel="noopener noreferrer" aria-label="Details! Damage Meter in CurseForge installieren" title="Exportierte Version: Details-Details.20261104.15400.172.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1707971" data-file-id="9473650">
+            <th scope="row"><span class="row-number">08</span><span class="addon-name">DungeonJournal</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/dungeonjournal" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/dungeonjournal</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/dungeonjournal/install/9473650" target="_blank" rel="noopener noreferrer" aria-label="DungeonJournal in CurseForge installieren" title="Exportierte Version: ForeverDungeonJournal-1.7.0.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1477613" data-file-id="9469324">
+            <th scope="row"><span class="row-number">09</span><span class="addon-name">EllesmereUI</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/ellesmereui" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/ellesmereui</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/ellesmereui/install/9469324" target="_blank" rel="noopener noreferrer" aria-label="EllesmereUI in CurseForge installieren" title="Exportierte Version: EllesmereUI-v9.7.8.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1703732" data-file-id="9379792">
+            <th scope="row"><span class="row-number">10</span><span class="addon-name">Forever Quest Tint</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/forever-quest-tint" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/forever-quest-tint</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/forever-quest-tint/install/9379792" target="_blank" rel="noopener noreferrer" aria-label="Forever Quest Tint in CurseForge installieren" title="Exportierte Version: ForeverQuestTint-0.7.1.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1575831" data-file-id="9483992">
+            <th scope="row"><span class="row-number">11</span><span class="addon-name">Friends with Benefits</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/friends-with-benefits" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/friends-with-benefits</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/friends-with-benefits/install/9483992" target="_blank" rel="noopener noreferrer" aria-label="Friends with Benefits in CurseForge installieren" title="Exportierte Version: FriendsWithBenefits.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1754997" data-file-id="9474667">
+            <th scope="row"><span class="row-number">12</span><span class="addon-name">Glowing Bars</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/glowing-bars" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/glowing-bars</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/glowing-bars/install/9474667" target="_blank" rel="noopener noreferrer" aria-label="Glowing Bars in CurseForge installieren" title="Exportierte Version: GlowingBars-2.6.0.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="100317" data-file-id="9032992">
+            <th scope="row"><span class="row-number">13</span><span class="addon-name">John Cena Level Up</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/john-cena-level" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/john-cena-level</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/john-cena-level/install/9032992" target="_blank" rel="noopener noreferrer" aria-label="John Cena Level Up in CurseForge installieren" title="Exportierte Version: 1.0_WF161.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="298842" data-file-id="9467345">
+            <th scope="row"><span class="row-number">14</span><span class="addon-name">Leatrix Maps</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/leatrix-maps" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/leatrix-maps</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/leatrix-maps/install/9467345" target="_blank" rel="noopener noreferrer" aria-label="Leatrix Maps in CurseForge installieren" title="Exportierte Version: Leatrix_Maps-1.60.28-forever.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="94855" data-file-id="9471872">
+            <th scope="row"><span class="row-number">15</span><span class="addon-name">Leatrix Plus</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/leatrix-plus" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/leatrix-plus</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/leatrix-plus/install/9471872" target="_blank" rel="noopener noreferrer" aria-label="Leatrix Plus in CurseForge installieren" title="Exportierte Version: Leatrix_Plus-1.60.29-forever.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="304659" data-file-id="9447594">
+            <th scope="row"><span class="row-number">16</span><span class="addon-name">Leatrix Sounds</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/leatrix-sounds" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/leatrix-sounds</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/leatrix-sounds/install/9447594" target="_blank" rel="noopener noreferrer" aria-label="Leatrix Sounds in CurseForge installieren" title="Exportierte Version: Leatrix_Sounds-1.60.27-forever.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="446096" data-file-id="9480602">
+            <th scope="row"><span class="row-number">17</span><span class="addon-name">MinimapButtonButton</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/minimapbuttonbutton" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/minimapbuttonbutton</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/minimapbuttonbutton/install/9480602" target="_blank" rel="noopener noreferrer" aria-label="MinimapButtonButton in CurseForge installieren" title="Exportierte Version: MinimapButtonButton-1.24.17.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="646134" data-file-id="9483964">
+            <th scope="row"><span class="row-number">18</span><span class="addon-name">MoveAny (Edit Mode, Windows and Ui)</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/moveany" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/moveany</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/moveany/install/9483964" target="_blank" rel="noopener noreferrer" aria-label="MoveAny (Edit Mode, Windows and Ui) in CurseForge installieren" title="Exportierte Version: MoveAny-v1.14.11-forever.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1713094" data-file-id="9458233">
+            <th scope="row"><span class="row-number">19</span><span class="addon-name">Musca Auras</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/musca-auras" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/musca-auras</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/musca-auras/install/9458233" target="_blank" rel="noopener noreferrer" aria-label="Musca Auras in CurseForge installieren" title="Exportierte Version: WeakAuras-v1.15.0-forever.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1731901" data-file-id="9475081">
+            <th scope="row"><span class="row-number">20</span><span class="addon-name">NeedRoll - Modern/Expanded Atlasloot</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/needroll" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/needroll</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/needroll/install/9475081" target="_blank" rel="noopener noreferrer" aria-label="NeedRoll - Modern/Expanded Atlasloot in CurseForge installieren" title="Exportierte Version: NeedRoll-v1.0.3-forever.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1696140" data-file-id="9396675">
+            <th scope="row"><span class="row-number">21</span><span class="addon-name">Offhand - Dual-Screen and Multi-Monitor UI</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/offhand" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/offhand</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/offhand/install/9396675" target="_blank" rel="noopener noreferrer" aria-label="Offhand - Dual-Screen and Multi-Monitor UI in CurseForge installieren" title="Exportierte Version: Offhand-v2.1.2-beta.26.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1718986" data-file-id="9452667">
+            <th scope="row"><span class="row-number">22</span><span class="addon-name">PallyPower Forever</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/pallypower-forever" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/pallypower-forever</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/pallypower-forever/install/9452667" target="_blank" rel="noopener noreferrer" aria-label="PallyPower Forever in CurseForge installieren" title="Exportierte Version: PallyPower-Forever-v1105.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="100547" data-file-id="9438179">
+            <th scope="row"><span class="row-number">23</span><span class="addon-name">Plater Nameplates</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/plater-nameplates" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/plater-nameplates</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/plater-nameplates/install/9438179" target="_blank" rel="noopener noreferrer" aria-label="Plater Nameplates in CurseForge installieren" title="Exportierte Version: Plater-v663.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1720719" data-file-id="9298424">
+            <th scope="row"><span class="row-number">24</span><span class="addon-name">PrettyTooltip</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/prettytooltip" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/prettytooltip</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/prettytooltip/install/9298424" target="_blank" rel="noopener noreferrer" aria-label="PrettyTooltip in CurseForge installieren" title="Exportierte Version: PrettyTooltip-v1.3.7-forever.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="334372" data-file-id="9467165">
+            <th scope="row"><span class="row-number">25</span><span class="addon-name">Questie</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/questie" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/questie</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/questie/install/9467165" target="_blank" rel="noopener noreferrer" aria-label="Questie in CurseForge installieren" title="Exportierte Version: Questie-v12.6.2.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1696795" data-file-id="9455844">
+            <th scope="row"><span class="row-number">26</span><span class="addon-name">QuestieDB</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/questiedb" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/questiedb</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/questiedb/install/9455844" target="_blank" rel="noopener noreferrer" aria-label="QuestieDB in CurseForge installieren" title="Exportierte Version: QuestieDB-1.0.11-Forever.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1695789" data-file-id="9458107">
+            <th scope="row"><span class="row-number">27</span><span class="addon-name">QuestieTrace</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/questietrace" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/questietrace</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/questietrace/install/9458107" target="_blank" rel="noopener noreferrer" aria-label="QuestieTrace in CurseForge installieren" title="Exportierte Version: QuestieTrace-v1.9.0.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="84208" data-file-id="9456355">
+            <th scope="row"><span class="row-number">28</span><span class="addon-name">RareScanner</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/rarescanner" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/rarescanner</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/rarescanner/install/9456355" target="_blank" rel="noopener noreferrer" aria-label="RareScanner in CurseForge installieren" title="Exportierte Version: RareScanner_FOREVER_1.60.1.2.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="5422" data-file-id="9193612">
+            <th scope="row"><span class="row-number">29</span><span class="addon-name">Scrap (Junk Seller)</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/scrap" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/scrap</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/scrap/install/9193612" target="_blank" rel="noopener noreferrer" aria-label="Scrap (Junk Seller) in CurseForge installieren" title="Exportierte Version: CUsersJaliborcDesktopScrap-12.1.8.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1705762" data-file-id="9483518">
+            <th scope="row"><span class="row-number">30</span><span class="addon-name">SkillUp Forever</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/skillup-forever" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/skillup-forever</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/skillup-forever/install/9483518" target="_blank" rel="noopener noreferrer" aria-label="SkillUp Forever in CurseForge installieren" title="Exportierte Version: SkillUpForever-v1.0.23-forever.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="295182" data-file-id="9435616">
+            <th scope="row"><span class="row-number">31</span><span class="addon-name">Speedy AutoLoot</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/speedyautoloot" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/speedyautoloot</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/speedyautoloot/install/9435616" target="_blank" rel="noopener noreferrer" aria-label="Speedy AutoLoot in CurseForge installieren" title="Exportierte Version: SpeedyAutoLoot-125.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1700375" data-file-id="9455301">
+            <th scope="row"><span class="row-number">32</span><span class="addon-name">Spoken</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/spoken" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/spoken</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/spoken/install/9455301" target="_blank" rel="noopener noreferrer" aria-label="Spoken in CurseForge installieren" title="Exportierte Version: Spoken-3.8.3.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1746501" data-file-id="9432371">
+            <th scope="row"><span class="row-number">33</span><span class="addon-name">Spoken German</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/spoken-german" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/spoken-german</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/spoken-german/install/9432371" target="_blank" rel="noopener noreferrer" aria-label="Spoken German in CurseForge installieren" title="Exportierte Version: SpokenAll_deDE-1.1.0.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1781613" data-file-id="9423377">
+            <th scope="row"><span class="row-number">34</span><span class="addon-name">Spoken German Audio: Bosses</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/spoken-german-audio-bosses" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/spoken-german-audio-bosses</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/spoken-german-audio-bosses/install/9423377" target="_blank" rel="noopener noreferrer" aria-label="Spoken German Audio: Bosses in CurseForge installieren" title="Exportierte Version: SpokenBossesAudio_deDE-1.0.0.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1743701" data-file-id="9475568">
+            <th scope="row"><span class="row-number">35</span><span class="addon-name">Spoken German Audio: Gossip</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/spoken-german-audio-gossip" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/spoken-german-audio-gossip</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/spoken-german-audio-gossip/install/9475568" target="_blank" rel="noopener noreferrer" aria-label="Spoken German Audio: Gossip in CurseForge installieren" title="Exportierte Version: SpokenQuestsAudioGossip_deDE-1.1.6.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1713131" data-file-id="9475585">
+            <th scope="row"><span class="row-number">36</span><span class="addon-name">Spoken German Audio: Places</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/spoken-german-audio-places" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/spoken-german-audio-places</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/spoken-german-audio-places/install/9475585" target="_blank" rel="noopener noreferrer" aria-label="Spoken German Audio: Places in CurseForge installieren" title="Exportierte Version: SpokenPlacesAudio_deDE-2.2.1.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1743699" data-file-id="9475523">
+            <th scope="row"><span class="row-number">37</span><span class="addon-name">Spoken German Audio: Quests - Alliance</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/spoken-german-audio-quests-alliance" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/spoken-german-audio-quests-alliance</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/spoken-german-audio-quests-alliance/install/9475523" target="_blank" rel="noopener noreferrer" aria-label="Spoken German Audio: Quests - Alliance in CurseForge installieren" title="Exportierte Version: SpokenQuestsAudioAlliance_deDE-1.1.6.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1743694" data-file-id="9475539">
+            <th scope="row"><span class="row-number">38</span><span class="addon-name">Spoken German Audio: Quests - Horde</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/spoken-german-audio-quests-horde" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/spoken-german-audio-quests-horde</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/spoken-german-audio-quests-horde/install/9475539" target="_blank" rel="noopener noreferrer" aria-label="Spoken German Audio: Quests - Horde in CurseForge installieren" title="Exportierte Version: SpokenQuestsAudioHorde_deDE-1.1.6.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1717808" data-file-id="9475556">
+            <th scope="row"><span class="row-number">39</span><span class="addon-name">Spoken German Audio: Quests - Shared</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/spoken-german-audio-quests-shared" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/spoken-german-audio-quests-shared</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/spoken-german-audio-quests-shared/install/9475556" target="_blank" rel="noopener noreferrer" aria-label="Spoken German Audio: Quests - Shared in CurseForge installieren" title="Exportierte Version: SpokenQuestsAudioShared_deDE-1.1.6.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="1723279" data-file-id="9476528">
+            <th scope="row"><span class="row-number">40</span><span class="addon-name">Spoken German Audio: Readables</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/spoken-german-audio-readables" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/spoken-german-audio-readables</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/spoken-german-audio-readables/install/9476528" target="_blank" rel="noopener noreferrer" aria-label="Spoken German Audio: Readables in CurseForge installieren" title="Exportierte Version: SpokenReadablesAudio_deDE-2.2.5.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="988370" data-file-id="9424031">
+            <th scope="row"><span class="row-number">41</span><span class="addon-name">Syndicator</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/syndicator" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/syndicator</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/syndicator/install/9424031" target="_blank" rel="noopener noreferrer" aria-label="Syndicator in CurseForge installieren" title="Exportierte Version: Syndicator-289.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="489" data-file-id="9185201">
+            <th scope="row"><span class="row-number">42</span><span class="addon-name">Titan Panel</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/titan-panel" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/titan-panel</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/titan-panel/install/9185201" target="_blank" rel="noopener noreferrer" aria-label="Titan Panel in CurseForge installieren" title="Exportierte Version: TitanPanel-9.3.5.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="18808" data-file-id="9426121">
+            <th scope="row"><span class="row-number">43</span><span class="addon-name">TomTom</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/tomtom" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/tomtom</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/tomtom/install/9426121" target="_blank" rel="noopener noreferrer" aria-label="TomTom in CurseForge installieren" title="Exportierte Version: TomTom-v4.4.0-release.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          <tr data-project-id="324944" data-file-id="9456420">
+            <th scope="row"><span class="row-number">44</span><span class="addon-name">What&#39;s Training?</span></th>
+            <td class="project-cell"><a class="project-link" href="https://www.curseforge.com/wow/addons/whats-training" target="_blank" rel="noopener noreferrer">https://www.curseforge.com/wow/addons/whats-training</a></td>
+            <td class="action-cell"><a class="install-button" href="https://www.curseforge.com/wow/addons/whats-training/install/9456420" target="_blank" rel="noopener noreferrer" aria-label="What&#39;s Training? in CurseForge installieren" title="Exportierte Version: WhatsTraining-11.2.0.zip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg><span>Installieren</span></a></td>
+          </tr>
+          </tbody>
+        </table>
+        <p class="empty" id="empty-state" hidden>Kein passendes Addon gefunden. Probiere einen anderen Namen.</p>
+      </div>
+      <div class="panel-footer"><span>Stand: 07.11.2026 · WoW Forever 1.60.1.70790</span><span>44 Addons · Exportierte Dateiversionen</span></div>
+    </section>
+    <p class="usage"><strong>So funktioniert’s:</strong> „Installieren“ öffnet die offizielle CurseForge-Installationsseite und von dort die <a href="https://www.curseforge.com/download/app" target="_blank" rel="noopener noreferrer">CurseForge-App</a>. Wähle in der App deine <strong>Forever</strong>-Installation. Die Buttons verwenden die beim Export installierten Dateiversionen. Über den Projektlink findest du auch neuere Versionen.</p>
+    <footer><span>Persönliche Addon-Liste · Version 0.0.1</span><span>Inoffizielle Übersicht · World of Warcraft &amp; CurseForge gehören ihren jeweiligen Rechteinhabern.</span></footer>
+  </main>
+  <script>
+    // Alle Einträge bleiben im HTML erhalten: Links funktionieren auch ohne JavaScript.
+    const search = document.getElementById("addon-search");
+    const rows = Array.from(document.querySelectorAll("#addon-list tr"));
+    const count = document.getElementById("result-count");
+    const empty = document.getElementById("empty-state");
+    const normalize = (text) => text.toLocaleLowerCase("de-DE").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const searchIndex = rows.map((row) => normalize(row.querySelector(".addon-name").textContent + " " + row.querySelector(".project-link").textContent));
+    search.addEventListener("input", () => {
+      const terms = normalize(search.value.trim()).split(/\s+/).filter(Boolean);
+      let visible = 0;
+      rows.forEach((row, index) => {
+        row.hidden = !terms.every((term) => searchIndex[index].includes(term));
+        if (!row.hidden) visible += 1;
+      });
+      count.textContent = terms.length ? visible + " von " + rows.length + " Addons" : rows.length + " Addons";
+      empty.hidden = visible !== 0;
+    });
+  </script>
+</body>
+</html>
+
